@@ -40,12 +40,12 @@ What it does: Uploads local commits to the remote repository.
 Example:
 git push origin main
 
-##git pull
+## git pull
 What it does: Fetches and merges changes from the remote repository.
 Example:
 git pull origin main
 
-##git status
+## git status
 What it does: Shows the current state of the working directory and staging area.
 Example:
 git status
