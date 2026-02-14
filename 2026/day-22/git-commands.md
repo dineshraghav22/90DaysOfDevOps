@@ -64,3 +64,7 @@ git diff
 What it does: Lists or creates branches.
 Example:
 git branch
+
+
+
+Added known command and practised same
