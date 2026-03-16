@@ -1,0 +1,23 @@
+server:
+  name: database_vip
+  ip: 172.16.115.78
+  port: 3306
+
+database:
+  host: localhost
+  name: appdb
+  credentials:
+    user: appuser
+    password: "ch@nge_me_in_production"
+
+startup_script: |
+  #!/bin/bash
+  echo "Starting server..."
+  systemctl start mariadb
+  systemctl start nginx
+  echo "Server started."
+
+description: >
+  This is a production database server
+  running MariaDB and Nginx.
+  It serves the main application backend.

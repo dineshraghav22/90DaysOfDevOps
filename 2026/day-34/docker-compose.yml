@@ -1,0 +1,54 @@
+services:
+  web:
+    build: ./app
+    ports:
+      - "5001:5000"
+    environment:
+      - DB_HOST=db
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - REDIS_HOST=cache
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: on-failure
+    networks:
+      - app-network
+    labels:
+      - "app.component=web"
+      - "app.version=1.0"
+
+  db:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_DB=${DB_NAME}
+      - POSTGRES_USER=${DB_USER}
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+    networks:
+      - app-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    labels:
+      - "app.component=database"
+
+  cache:
+    image: redis:7-alpine
+    restart: always
+    networks:
+      - app-network
+    labels:
+      - "app.component=cache"
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

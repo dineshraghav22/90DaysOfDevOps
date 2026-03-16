@@ -1,0 +1,10 @@
+# Single-stage: includes entire Go toolchain in final image
+FROM golang:1.21
+
+WORKDIR /app
+COPY . .
+RUN go build -o server main.go
+
+EXPOSE 8080
+CMD ["./server"]
+# Image size: ~800MB+ (includes Go compiler, stdlib, build tools)

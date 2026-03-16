@@ -1,0 +1,13 @@
+name: Dinesh
+role: DevOps Engineer
+experience_years: 2
+learning: true
+
+tools:
+  - docker
+  - kubernetes
+  - git
+  - bash
+  - linux
+
+hobbies: [reading, coding, hiking]
